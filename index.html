@@ -9717,8 +9717,13 @@ function resetData() {
         const imgBox = document.getElementById('img-box');
         if (q.fig) {
             imgBox.style.display = 'flex';
-            imgBox.innerHTML = `<img src="img/${encodeURIComponent(q.fig)}.png">`;
-        } else { imgBox.style.display = 'none'; }
+            imgBox.innerHTML = ''; // Pulisce l'area
+            const imgEl = document.createElement('img');
+            imgEl.src = `img/${q.fig.trim()}.png`; // Gestisce spazi e accenti in automatico!
+            imgBox.appendChild(imgEl);
+        } else { 
+            imgBox.style.display = 'none'; 
+        }
         
         const area = document.getElementById('ans-area');
         area.innerHTML = '';
