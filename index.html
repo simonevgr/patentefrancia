@@ -9718,8 +9718,19 @@ function resetData() {
         if (q.fig) {
             imgBox.style.display = 'flex';
             imgBox.innerHTML = ''; // Pulisce l'area
+            
             const imgEl = document.createElement('img');
-            imgEl.src = `img/${q.fig.trim()}.png`; // Gestisce spazi e accenti in automatico!
+            
+            // NESSUNA MODIFICA: passiamo il nome esatto così com'è. 
+            // Il browser capirà da solo gli spazi e gli apostrofi!
+            imgEl.src = "img/" + q.fig + ".png";
+            
+            // Il trucco debug per sicurezza
+            imgEl.onerror = function() {
+                this.style.display = 'none';
+                imgBox.innerHTML = `<span style="color:red; font-size:12px; text-align:center; padding:10px;">Errore foto:<br><b>${q.fig}.png</b></span>`;
+            };
+            
             imgBox.appendChild(imgEl);
         } else { 
             imgBox.style.display = 'none'; 
